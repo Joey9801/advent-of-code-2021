@@ -22,6 +22,10 @@ harness = false
 name = "bench_day_12"
 harness = false
 
+[[bench]]
+name = "bench_day_13"
+harness = false
+
 [[bin]]
 name = "aoc_2021"
 path = "src/main.rs"

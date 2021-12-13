@@ -3,14 +3,14 @@ use std::collections::HashSet;
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Point {
-    pub x: i16,
-    pub y: i16,
+    pub x: i64,
+    pub y: i64,
 }
 
 #[derive(Clone, Copy)]
 pub enum Fold {
-    X(i16),
-    Y(i16),
+    X(i64),
+    Y(i64),
 }
 
 pub struct Input {
@@ -91,7 +91,7 @@ fn do_fold(points: &mut HashSet<Point>, fold: Fold) {
     *points = new_points;
 }
 
-fn part_1(input: &Input) -> usize {
+pub fn part_1(input: &Input) -> usize {
     let mut points = input.points.clone();
     do_fold(&mut points, input.folds[0]);
     points.len()
@@ -103,7 +103,7 @@ pub fn part_2_impl(points: &mut HashSet<Point>, folds: &[Fold]) {
     }
 }
 
-fn part_2(input: &Input) -> &'static str {
+pub fn part_2(input: &Input) -> &'static str {
     part_2_impl(&mut input.points.clone(), &input.folds);
     "lol ocr"
 }
