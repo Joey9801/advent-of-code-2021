@@ -2,6 +2,7 @@
 name = "aoc_2021"
 version = "0.1.0"
 edition = "2021"
+default-run = "aoc_2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -20,3 +21,15 @@ harness = false
 [[bench]]
 name = "bench_day_12"
 harness = false
+
+[[bin]]
+name = "aoc_2021"
+path = "src/main.rs"
+bench = false
+test = false
+
+[[bin]]
+name = "print_day_13"
+bench = false
+test = false
+path = "src/day_13/print_day_13.rs"

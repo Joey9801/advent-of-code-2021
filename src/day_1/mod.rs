@@ -1,9 +1,7 @@
 pub fn parse_input(raw: &str) -> Vec<u16> {
-    raw
-        .trim()
-        .split('\n')
-        .map(|l| str::parse::<u16>(l).unwrap())
-        .collect::<Vec<u16>>()
+    raw.lines()
+        .map(|line| line.parse().unwrap())
+        .collect()
 }
 
 pub fn part_1(input: &[u16]) -> u16 {
