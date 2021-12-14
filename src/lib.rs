@@ -112,22 +112,36 @@ macro_rules! impl_day {
     }
 }
 
-macro_rules! days {
-    ($($day:ident),+) => {
-        paste::paste! {
-            $(
-                pub mod [<day $day>];
-            )*
-            
-            pub fn all_days() -> Vec<ErasedDay> {
-                vec![
-                    $(
-                        [<day $day>]::Day::erased(),
-                    )*
-                ]
-            }
-        }
-    }
-}
+pub mod day_1;
+pub mod day_2;
+pub mod day_3;
+pub mod day_4;
+pub mod day_5;
+pub mod day_6;
+pub mod day_7;
+pub mod day_8;
+pub mod day_9;
+pub mod day_10;
+pub mod day_11;
+pub mod day_12;
+pub mod day_13;
+pub mod day_14;
 
-days!(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13);
+pub fn all_days() -> Vec<ErasedDay> {
+    vec![
+        day_1::Day::erased(),
+        day_2::Day::erased(),
+        day_3::Day::erased(),
+        day_4::Day::erased(),
+        day_5::Day::erased(),
+        day_6::Day::erased(),
+        day_7::Day::erased(),
+        day_8::Day::erased(),
+        day_9::Day::erased(),
+        day_10::Day::erased(),
+        day_11::Day::erased(),
+        day_12::Day::erased(),
+        day_13::Day::erased(),
+        day_14::Day::erased(),
+    ]
+}

@@ -18,4 +18,5 @@ Year/Day | Name                    | P1 result | P2 result     | Parse time | P1
 2021/11  | Dumbo Octopus           | 1773      | 494           | 1.1µs      | 96.7µs   | 353.5µs  | 451.3µs
 2021/12  | Passage Pathing         | 3779      | 96988         | 14.1µs     | 88.8µs   | 50.7µs   | 153.6µs
 2021/13  | Transparent Origami     | 735       | lol ocr       | 94.6µs     | 50.7µs   | 248.5µs  | 393.8µs
+2021/14  | Extended Polymerization | 2899      | 3528317079545 | 56.5µs     | 2.5µs    | 4.8µs    | 63.8µs
 ```
