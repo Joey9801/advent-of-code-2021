@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use aoc_2021::{all_days, RunResult};
 use structopt::StructOpt;
 
@@ -27,6 +29,21 @@ fn print_results(results: &[RunResult]) {
     let p1_time_width = col_width(results, "P1 time", |r| format!("{:?}", r.p1_time).len());
     let p2_time_width = col_width(results, "P2 time", |r| format!("{:?}", r.p2_time).len());
 
+    let total_parse_time: Duration = results.iter().map(|r| r.parse_time).sum();
+    let total_p1_time: Duration = results.iter().map(|r| r.p1_time).sum();
+    let total_p2_time: Duration = results.iter().map(|r| r.p2_time).sum();
+    let total_time: Duration = results.iter().map(|r| r.total_time()).sum();
+
+    let parse_time_width = std::cmp::max(parse_time_width, format!("{:?}", total_parse_time).len());
+    let p1_time_width = std::cmp::max(p1_time_width, format!("{:?}", total_p1_time).len());
+    let p2_time_width = std::cmp::max(p2_time_width, format!("{:?}", total_p2_time).len());
+
+    let total_offset = 10 // "year/day |"
+        + name_width + 3
+        + p1_result_width + 3
+        + p2_result_width + 1;
+
+
     let header = format!(
         "Year/Day | {:name_width$} | {:p1_result_width$} | {:p2_result_width$} | {:parse_time_width$} | {:p1_time_width$} | {:p2_time_width$} | Total time",
         "Name",
@@ -49,25 +66,37 @@ fn print_results(results: &[RunResult]) {
     }
     println!();
 
-    for result in results {
-        println!("{}/{:03} | {:name_width$} | {:p1_result_width$} | {:p2_result_width$} | {:parse_time_width$} | {:p1_time_width$} | {:p2_time_width$} | {}",
+    let print = |result: &RunResult| {
+        println!("{}/{:03} | {:name_width$} | {:p1_result_width$} | {:p2_result_width$} | {:parse_time_width$?} | {:p1_time_width$?} | {:p2_time_width$?} | {:?}",
             result.name.year,
             result.name.day,
             result.name.name,
             result.p1_result,
             result.p2_result,
-            format!("{:?}", result.parse_time),
-            format!("{:?}", result.p1_time),
-            format!("{:?}", result.p2_time),
-            format!("{:?}", result.total_time()),
-            name_width = name_width,
-            p1_result_width = p1_result_width,
-            p2_result_width = p2_result_width,
-            parse_time_width = parse_time_width,
-            p1_time_width = p1_time_width,
-            p2_time_width = p2_time_width,
-        );
+            result.parse_time,
+            result.p1_time,
+            result.p2_time,
+            result.total_time(),
+        )
+    };
+
+    for result in results {
+        print(result);
     }
+
+    for _ in 0..header.len() {
+        print!("-");
+    }
+    println!();
+
+    println!(
+        "{:>total_offset$} | {:parse_time_width$?} | {:p1_time_width$?} | {:p2_time_width$?} | {:?}",
+        "Total",
+        total_parse_time,
+        total_p1_time,
+        total_p2_time,
+        total_time,
+    );
 }
 
 fn main() {
