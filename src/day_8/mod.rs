@@ -26,10 +26,7 @@ pub fn parse_input(raw: &str) -> Vec<InputElem> {
         (map, code)
     }
 
-    raw
-        .lines()
-        .map(parse_line)
-        .collect()
+    raw.lines().map(parse_line).collect()
 }
 
 #[derive(Debug)]
@@ -134,4 +131,11 @@ pub fn part_2(input: &[([u8; 10], [u8; 4])]) -> i32 {
     ans
 }
 
-impl_day!("2021", "8", "Seven Segment Search", Vec<InputElem>, i32, i32);
+impl_day!(
+    "2021",
+    "8",
+    "Seven Segment Search",
+    Vec<InputElem>,
+    i32,
+    i32
+);

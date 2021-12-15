@@ -69,7 +69,7 @@ pub trait Day {
             name: Self::name(),
             run: Box::new(Self::run),
         }
-    } 
+    }
 }
 
 pub struct ErasedDay {
@@ -104,15 +104,20 @@ macro_rules! impl_day {
                 part_1(input)
             }
 
-
             fn part_2(input: &Self::ParsedInput) -> Self::P2Result {
                 part_2(input)
             }
         }
-    }
+    };
 }
 
 pub mod day_1;
+pub mod day_10;
+pub mod day_11;
+pub mod day_12;
+pub mod day_13;
+pub mod day_14;
+pub mod day_15;
 pub mod day_2;
 pub mod day_3;
 pub mod day_4;
@@ -121,7 +126,6 @@ pub mod day_6;
 pub mod day_7;
 pub mod day_8;
 pub mod day_9;
-pub mod day_15;
 
 pub fn all_days() -> Vec<ErasedDay> {
     vec![

@@ -48,7 +48,7 @@ fn print_results(results: &[RunResult]) {
         print!("-");
     }
     println!();
-    
+
     for result in results {
         println!("{}/{:03} | {:name_width$} | {:p1_result_width$} | {:p2_result_width$} | {:parse_time_width$} | {:p1_time_width$} | {:p2_time_width$} | {}",
             result.name.year,

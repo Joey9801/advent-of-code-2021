@@ -39,10 +39,7 @@ fn parse_input(raw: &str) -> FishState {
         counts: [0; 9],
         head: 0,
     };
-    for age in raw
-        .split(",")
-        .map(|s| s.parse::<usize>().unwrap())
-    {
+    for age in raw.split(",").map(|s| s.parse::<usize>().unwrap()) {
         state.counts[age] += 1;
     }
 

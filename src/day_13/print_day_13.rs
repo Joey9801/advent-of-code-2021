@@ -6,10 +6,14 @@ fn main() {
 
     let max_x = points.iter().map(|p| p.x).max().unwrap();
     let max_y = points.iter().map(|p| p.y).max().unwrap();
-    
+
     for y in 0..=max_y {
         for x in 0..=max_x {
-            let c = if points.contains(&Point {x, y}) { '#' } else { ' ' };
+            let c = if points.contains(&Point { x, y }) {
+                '#'
+            } else {
+                ' '
+            };
             print!("{}", c);
         }
         println!();

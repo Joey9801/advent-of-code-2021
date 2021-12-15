@@ -29,8 +29,7 @@ impl Symbol {
 }
 
 fn parse_input(raw: &str) -> Vec<Vec<Symbol>> {
-    raw
-        .lines()
+    raw.lines()
         .map(|line| line.chars().map(Symbol::from_char).collect())
         .collect()
 }

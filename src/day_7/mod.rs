@@ -1,9 +1,5 @@
 fn parse_input(raw: &str) -> Vec<i32> {
-    raw
-        .split(",")
-        .map(str::parse)
-        .map(Result::unwrap)
-        .collect()
+    raw.split(",").map(str::parse).map(Result::unwrap).collect()
 }
 
 fn part_1(input: &[i32]) -> i32 {
