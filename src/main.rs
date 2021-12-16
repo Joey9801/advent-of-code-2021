@@ -47,7 +47,6 @@ fn print_results(results: &[RunResult]) {
         + p1_result_width + 3
         + p2_result_width + 1;
 
-
     let header = format!(
         "Year/Day | {:name_width$} | {:p1_result_width$} | {:p2_result_width$} | {:parse_time_width$} | {:p1_time_width$} | {:p2_time_width$} | Total time",
         "Name",
@@ -107,7 +106,10 @@ fn main() {
     let opt = Opt::from_args();
     let mut solutions = all_days();
 
-    solutions = solutions.drain(..).filter(|d| d.name.year == &opt.year).collect();
+    solutions = solutions
+        .drain(..)
+        .filter(|d| d.name.year == &opt.year)
+        .collect();
 
     if let Some(day) = &opt.day {
         solutions = solutions.drain(..).filter(|d| d.name.day == day).collect();
