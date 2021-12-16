@@ -4,11 +4,15 @@ use aoc_2021::{all_days, RunResult};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
-#[structopt(name = "example", about = "An example of StructOpt usage.")]
+#[structopt(name = "aoc", about = "Joey9801's advent-of-code solutions")]
 struct Opt {
-    /// Single day: Only run the solution for a single day
-    #[structopt(name = "DAY_NUM", long = "single-day")]
-    single_day: Option<String>,
+    /// Filter for answers on the given year
+    #[structopt(name = "YEAR", long = "year", default_value = "2021")]
+    year: String,
+
+    /// Filter for answers on the given day
+    #[structopt(name = "DAY", long = "day")]
+    day: Option<String>,
 }
 
 fn print_results(results: &[RunResult]) {
@@ -101,13 +105,18 @@ fn print_results(results: &[RunResult]) {
 
 fn main() {
     let opt = Opt::from_args();
-    let mut days = all_days();
+    let mut solutions = all_days();
 
-    if let Some(day_num) = opt.single_day {
-        days = days.drain(..).filter(|d| d.name.day == &day_num).collect();
+    solutions = solutions.drain(..).filter(|d| d.name.year == &opt.year).collect();
+
+    if let Some(day) = &opt.day {
+        solutions = solutions.drain(..).filter(|d| d.name.day == day).collect();
     }
 
-    let results = days.iter().map(|d| (d.run)()).collect::<Vec<_>>();
-
-    print_results(&results);
+    if solutions.len() == 0 {
+        println!("No solutions match CLI opts: {:?}", &opt);
+    } else {
+        let results = solutions.iter().map(|d| (d.run)()).collect::<Vec<_>>();
+        print_results(&results);
+    }
 }
