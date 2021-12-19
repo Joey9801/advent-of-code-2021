@@ -120,6 +120,7 @@ pub mod day_14;
 pub mod day_15;
 pub mod day_16;
 pub mod day_17;
+pub mod day_18;
 pub mod day_2;
 pub mod day_3;
 pub mod day_4;
@@ -148,8 +149,6 @@ pub fn all_days() -> Vec<ErasedDay> {
         day_15::Day::erased(),
         day_16::Day::erased(),
         day_17::Day::erased(),
+        day_18::Day::erased(),
     ]
 }
-
-
-
