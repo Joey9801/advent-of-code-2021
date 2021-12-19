@@ -8,6 +8,7 @@ default-run = "aoc_2021"
 
 [dependencies]
 fxhash = "0.2.1"
+packed_simd = { version = "0.3.6", package = "packed_simd_2" }
 paste = "1.0.6"
 structopt = "0.3.25"
 

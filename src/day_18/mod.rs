@@ -1,5 +1,8 @@
 use std::str::FromStr;
 
+use packed_simd::i8x32;
+
+#[repr(C, align(256))]
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub struct SnailNum {
     // Consider an [i8; 4] representing a snail number of max depth 2
@@ -48,18 +51,30 @@ impl SnailNum {
 
     /// The index into self.contents of the left elemnt of a depth 5 pair
     pub fn first_depth_5(&self) -> Option<usize> {
-        for i in 0..16 {
-            let i = i * 2;
-            if self.contents[i] != -1 && self.contents[i + 1] != -1 {
-                return Some(i);
-            }
-        }
+        let a = i8x32::from_slice_aligned(&self.contents);
 
-        None
+        // A bitmask that is 1 where there are values, and 0 where the NULL placeholder is
+        let values = a.ne(i8x32::splat(-1)).bitmask();
+
+        const D5L_MASK: u32 = 0b0101_0101_0101_0101_0101_0101_0101_0101;
+        const D5R_MASK: u32 = 0b1010_1010_1010_1010_1010_1010_1010_1010;
+
+        // A bitmask that is 1 for the left element of all depth-5 pairs
+        let d5l = (values & D5L_MASK) & ((values & D5R_MASK) >> 1);
+
+        match d5l.trailing_zeros() {
+            32 => None,
+            x => Some(x as usize),
+        }
     }
 
     pub fn first_gte_10(&self) -> Option<usize> {
-        self.contents.iter().position(|&x| x >= 10)
+        let a = i8x32::from_slice_aligned(&self.contents);
+        let gte10 = a.ge(i8x32::splat(10)).bitmask();
+        match gte10.trailing_zeros() {
+            32 => None,
+            x => Some(x as usize),
+        }
     }
 
     fn next(&self, idx: usize) -> Option<usize> {
