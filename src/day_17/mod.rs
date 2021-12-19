@@ -8,7 +8,10 @@ impl std::ops::Add for Point {
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self::Output {
-        Self { x: self.x + rhs.x, y: self.y + rhs.y }
+        Self {
+            x: self.x + rhs.x,
+            y: self.y + rhs.y,
+        }
     }
 }
 
@@ -20,8 +23,10 @@ pub struct Target {
 
 impl Target {
     fn contains(&self, p: Point) -> bool {
-        p.x >= self.bottom_left.x && p.x <= self.top_right.x &&
-        p.y >= self.bottom_left.y && p.y <= self.top_right.y
+        p.x >= self.bottom_left.x
+            && p.x <= self.top_right.x
+            && p.y >= self.bottom_left.y
+            && p.y <= self.top_right.y
     }
 }
 
@@ -75,28 +80,28 @@ fn trial(target: &Target, init_vel: Point) -> Option<i32> {
         pos: Point { x: 0, y: 0 },
         vel: init_vel,
     };
-    
+
     let mut max_height = 0;
     loop {
         if target.contains(state.pos) {
             break Some(max_height);
         }
-        
+
         if state.pos.y < target.bottom_left.y && state.vel.y <= 0 {
             // Falling below target
             break None;
         }
-        
+
         if state.pos.x < target.bottom_left.x && state.vel.x <= 0 {
             // Falling short
             break None;
         }
-        
+
         if state.pos.x > target.top_right.x && state.vel.x >= 0 {
             // Overshot
             break None;
         }
-        
+
         state.step();
         max_height = std::cmp::max(max_height, state.pos.y);
     }
@@ -106,12 +111,18 @@ fn part_1(target: &Target) -> i32 {
     let mut max = 0;
     for init_x in 0..(target.top_right.x + 1) {
         for init_y in (target.bottom_left.y - 1)..1000 {
-            if let Some(height) = trial(target, Point { x: init_x, y: init_y }) {
+            if let Some(height) = trial(
+                target,
+                Point {
+                    x: init_x,
+                    y: init_y,
+                },
+            ) {
                 max = std::cmp::max(max, height);
             }
         }
     }
-    
+
     max
 }
 
@@ -119,12 +130,20 @@ fn part_2(target: &Target) -> i32 {
     let mut count = 0;
     for init_x in 0..(target.top_right.x + 1) {
         for init_y in (target.bottom_left.y - 1)..1000 {
-            if trial(target, Point { x: init_x, y: init_y }).is_some() {
+            if trial(
+                target,
+                Point {
+                    x: init_x,
+                    y: init_y,
+                },
+            )
+            .is_some()
+            {
                 count += 1;
             }
         }
     }
-    
+
     count
 }
 
